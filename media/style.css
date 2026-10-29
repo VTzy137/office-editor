@@ -1,0 +1,200 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+}
+#app { height: 100%; }
+.loading, .fatal { padding: 24px; opacity: 0.8; }
+.fatal pre { white-space: pre-wrap; color: var(--vscode-errorForeground); }
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  min-height: 30px;
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3));
+  background: var(--vscode-editorWidget-background, var(--vscode-editor-background));
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.tb-title { font-weight: 600; margin-right: 4px; }
+.tb-sep { width: 1px; height: 18px; background: var(--vscode-panel-border, rgba(128, 128, 128, 0.4)); margin: 0 6px; }
+.tb-hint { margin-left: auto; opacity: 0.65; font-size: 0.9em; }
+.tb-zoom { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; }
+.tb-btn, .tb-select {
+  font: inherit;
+  color: var(--vscode-foreground);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: pointer;
+  min-height: 24px;
+}
+.tb-btn:hover { background: var(--vscode-toolbar-hoverBackground, rgba(128, 128, 128, 0.2)); }
+.tb-btn.danger:hover { color: var(--vscode-errorForeground); }
+.tb-select {
+  background: var(--vscode-dropdown-background);
+  color: var(--vscode-dropdown-foreground);
+  border-color: var(--vscode-dropdown-border, transparent);
+}
+.fmt-b { font-weight: bold; }
+.fmt-i { font-style: italic; font-family: serif; }
+.fmt-u { text-decoration: underline; }
+
+/* ---------- Table editor ---------- */
+.table-editor { display: flex; flex-direction: column; height: 100%; }
+.formula-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3));
+}
+.address { min-width: 56px; font-family: var(--vscode-editor-font-family); opacity: 0.8; }
+.fx { font-style: italic; opacity: 0.6; }
+.formula-input, .cell-input {
+  font: inherit;
+  font-family: var(--vscode-editor-font-family);
+  color: var(--vscode-input-foreground);
+  background: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border, transparent);
+  outline: none;
+}
+.formula-input { flex: 1; padding: 3px 6px; }
+.formula-input:focus { border-color: var(--vscode-focusBorder); }
+.grid-scroll { flex: 1; overflow: auto; outline: none; }
+.grid { border-collapse: separate; border-spacing: 0; font-family: var(--vscode-editor-font-family); font-size: var(--vscode-editor-font-size); }
+.grid th, .grid td {
+  border-right: 1px solid var(--vscode-editorGroup-border, rgba(128, 128, 128, 0.25));
+  border-bottom: 1px solid var(--vscode-editorGroup-border, rgba(128, 128, 128, 0.25));
+  padding: 2px 6px;
+  height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+  min-width: 64px;
+}
+.grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--vscode-editorWidget-background, var(--vscode-editor-background));
+  font-weight: normal;
+  opacity: 1;
+  color: var(--vscode-descriptionForeground);
+}
+.grid .row-head, .grid .corner {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--vscode-editorWidget-background, var(--vscode-editor-background));
+  color: var(--vscode-descriptionForeground);
+  font-weight: normal;
+  min-width: 40px;
+  text-align: right;
+}
+.grid .corner { z-index: 3; }
+.grid .head-active { color: var(--vscode-foreground); background: var(--vscode-list-inactiveSelectionBackground); }
+.grid td { cursor: cell; position: relative; }
+.grid td.num { text-align: right; }
+.grid td.formula { font-style: italic; color: var(--vscode-textLink-foreground); }
+.grid td.selected { outline: 2px solid var(--vscode-focusBorder); outline-offset: -2px; background: var(--vscode-list-hoverBackground); }
+.cell-input { position: absolute; inset: 0; width: 100%; box-sizing: border-box; padding: 2px 5px; border-color: var(--vscode-focusBorder); }
+.sheet-tabs { display: flex; gap: 2px; padding: 2px 8px; border-top: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3)); overflow-x: auto; }
+.sheet-tab {
+  font: inherit;
+  color: var(--vscode-foreground);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 4px 12px;
+  cursor: pointer;
+  opacity: 0.75;
+}
+.sheet-tab.active { border-bottom-color: var(--vscode-focusBorder); opacity: 1; font-weight: 600; }
+
+/* ---------- Word ---------- */
+.doc-editor { display: flex; flex-direction: column; height: 100%; }
+.doc-scroll { flex: 1; overflow: auto; padding: 24px 16px 64px; background: var(--vscode-editorWidget-background, #e8e8e8); }
+.doc-page {
+  box-sizing: border-box;
+  max-width: 816px;
+  min-height: 1056px;
+  margin: 0 auto;
+  padding: 72px 80px;
+  background: #fff;
+  color: #000;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  line-height: 1.35;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  outline: none;
+  overflow-wrap: break-word;
+}
+.doc-page p, .doc-page div { margin: 0 0 8px; white-space: pre-wrap; tab-size: 4; min-height: 1em; position: relative; }
+.doc-page p[data-label]::before { content: attr(data-label); position: absolute; left: 0; width: 24px; text-align: right; padding-right: 4px; }
+.doc-page p[data-locked] { cursor: default; }
+.doc-page p[data-locked]:hover { background: rgba(0, 120, 212, 0.06); }
+.doc-img { max-width: 100%; height: auto; vertical-align: bottom; }
+.doc-table { border-collapse: collapse; width: 100%; margin: 0 0 10px; }
+.doc-table td { border: 1px solid #a0a0a0; padding: 4px 6px; vertical-align: top; }
+.doc-table td p { margin: 0; }
+
+/* ---------- PowerPoint ---------- */
+.pptx-editor { display: flex; flex-direction: column; height: 100%; }
+.deck { flex: 1; overflow: auto; padding: 16px 24px 48px; --scale: 1; background: var(--vscode-editorWidget-background, #e8e8e8); }
+.slide-wrap { margin: 0 auto 28px; width: fit-content; }
+.slide-num { font-size: 0.85em; opacity: 0.7; margin-bottom: 4px; }
+.hidden-slide .slide-frame { opacity: 0.6; }
+.slide-frame { overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); }
+.slide {
+  position: relative;
+  transform: scale(var(--scale));
+  transform-origin: 0 0;
+  overflow: hidden;
+  color: #000;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+}
+.slide-img, .slide-text, .slide-object, .slide-table-wrap { position: absolute; box-sizing: border-box; }
+.slide-img { object-fit: fill; user-select: none; }
+.slide-text { display: flex; flex-direction: column; padding: 4.8px 9.6px; line-height: 1.15; overflow-wrap: break-word; }
+.slide-text.anchor-t { justify-content: flex-start; }
+.slide-text.anchor-ctr { justify-content: center; }
+.slide-text.anchor-b { justify-content: flex-end; }
+.slide-para { white-space: pre-wrap; outline: none; border-radius: 2px; }
+.slide-para[data-bullet] { padding-left: 1.1em; position: relative; }
+.slide-para[data-bullet]::before { content: attr(data-bullet); position: absolute; left: 0; }
+.slide-para[contenteditable='true']:hover { box-shadow: 0 0 0 1px rgba(0, 120, 212, 0.5); }
+.slide-para[contenteditable='true']:focus { box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.9); background: rgba(255, 255, 255, 0.15); }
+.slide-object { display: flex; align-items: center; justify-content: center; border: 1px dashed #999; color: #777; font-size: 20px; background: rgba(0, 0, 0, 0.03); }
+.slide-table { border-collapse: collapse; width: 100%; height: 100%; table-layout: fixed; }
+.slide-table td { border: 1px solid #fff; padding: 4px 8px; vertical-align: top; background: #e9edf4; }
+
+/* ---------- PDF ---------- */
+.pdf-editor { display: flex; flex-direction: column; height: 100%; }
+.pdf-pages { flex: 1; overflow: auto; padding: 16px 24px 48px; background: var(--vscode-editorWidget-background, #e8e8e8); }
+.pdf-page { position: relative; margin: 0 auto 16px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35); }
+.pdf-canvas { display: block; }
+.pdf-text-layer { position: absolute; inset: 0; overflow: hidden; line-height: 1; }
+.pdf-text {
+  position: absolute;
+  white-space: pre;
+  color: transparent;
+  transform-origin: 0 0;
+  cursor: text;
+  outline: none;
+  border-radius: 1px;
+}
+.pdf-text::selection { background: rgba(0, 100, 255, 0.3); }
+.pdf-text:hover { box-shadow: 0 0 0 1px rgba(0, 120, 212, 0.6); }
+.pdf-text.editing, .pdf-text.edited { color: #000; background: #fff; transform: none !important; min-width: var(--orig-width); padding-bottom: 0.15em; }
+.pdf-text.editing { box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.9); }
+.pdf-text.edited:not(.editing) { box-shadow: 0 0 0 1px rgba(255, 140, 0, 0.8); }

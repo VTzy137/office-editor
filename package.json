@@ -1,0 +1,89 @@
+{
+  "name": "office-editor",
+  "displayName": "Office Editor",
+  "description": "View and edit DOCX, XLSX, CSV, PPTX and PDF files inside VS Code.",
+  "version": "0.1.0",
+  "publisher": "nguyenvantruong",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "officeEditor.table",
+        "displayName": "Office Editor: Spreadsheet",
+        "selector": [
+          {
+            "filenamePattern": "*.csv"
+          },
+          {
+            "filenamePattern": "*.tsv"
+          },
+          {
+            "filenamePattern": "*.xlsx"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "officeEditor.docx",
+        "displayName": "Office Editor: Word",
+        "selector": [
+          {
+            "filenamePattern": "*.docx"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "officeEditor.pptx",
+        "displayName": "Office Editor: PowerPoint",
+        "selector": [
+          {
+            "filenamePattern": "*.pptx"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "officeEditor.pdf",
+        "displayName": "Office Editor: PDF",
+        "selector": [
+          {
+            "filenamePattern": "*.pdf"
+          }
+        ],
+        "priority": "default"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test:smoke": "esbuild test/smoke.ts --bundle --platform=node --outfile=test/out/smoke.js --log-level=warning && node test/out/smoke.js samples test/out/files",
+    "test:webview": "npm run build && esbuild test/webview.ts --bundle --platform=node --outfile=test/out/webview.js --external:playwright-core --log-level=warning && node test/out/webview.js",
+    "package": "npx @vscode/vsce package"
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@xmldom/xmldom": "^0.8.10",
+    "exceljs": "^4.4.0",
+    "jszip": "^3.10.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "4.10.38"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.24.0",
+    "playwright-core": "^1.48.2",
+    "typescript": "^5.6.0"
+  }
+}
