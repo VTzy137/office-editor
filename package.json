@@ -1,10 +1,11 @@
 {
-  "name": "office-editor",
-  "displayName": "Office Editor",
+  "name": "xlsx-csv-pdf-docx-pptx",
+  "displayName": "DOCX, XLSX, CSV, PPTX and PDF files",
   "description": "View and edit DOCX, XLSX, CSV, PPTX and PDF files inside VS Code.",
-  "version": "0.1.0",
-  "publisher": "nguyenvantruong",
+  "version": "0.1.1",
+  "publisher": "VTzy137",
   "license": "MIT",
+  "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
